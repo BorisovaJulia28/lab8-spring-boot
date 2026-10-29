@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Управление студентами</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container py-5">
+    <h1 class="mb-4">Управление студентами</h1>
+
+    <div sec:authorize="isAnonymous()">
+        <p>Для работы со студентами войдите в аккаунт.</p>
+
+        <a th:href="@{/login}" class="btn btn-primary">
+            Войти
+        </a>
+        <a th:href="@{/register}" class="btn btn-outline-primary">
+            Зарегистрироваться
+        </a>
+    </div>
+
+    <div sec:authorize="isAuthenticated()">
+        <p>
+            Вы вошли как
+            <strong sec:authentication="name"></strong>
+        </p>
+
+        <a th:href="@{/list}" class="btn btn-primary">
+            Студенты
+        </a>
+        <a th:href="@{/users}" class="btn btn-outline-primary">
+            Пользователи
+        </a>
+
+        <form th:action="@{/logout}" method="post" class="d-inline">
+            <button type="submit" class="btn btn-secondary">
+                Выйти
+            </button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
